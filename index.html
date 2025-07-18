@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CK Lottery AI Bot</title>
+  <script defer>
+    // Example AI prediction logic
+    const lastNumbers = [5, 2, 8, 3, 4, 6, 9, 0, 7, 1, 5, 4, 3, 6, 2, 9, 0, 8, 1, 7];function predictNext() {
+  const input = document.getElementById("userInput").value;
+  let predicted = 'Waiting...';
+  if (input !== "") {
+    const num = parseInt(input);
+    // Basic frequency-based logic
+    const freq = new Array(10).fill(0);
+    lastNumbers.forEach(n => freq[n]++);
+    const max = Math.max(...freq);
+    const likely = freq.map((v, i) => (v === max ? i : -1)).filter(i => i !== -1);
+    const choice = likely[Math.floor(Math.random() * likely.length)];
+
+    predicted = AI Guess: ${choice} — ${choice <= 4 ? 'Small (0–4)' : 'Big (5–9)'};
+  }
+  document.getElementById("aiOutput").textContent = predicted;
+}
+
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-black text-white font-sans min-h-screen flex flex-col justify-between">
+  <!-- Header -->
+  <header class="text-center p-4 text-2xl font-bold text-green-200">
+    CK Lottery AI Bot
+  </header>  <!-- Main content -->  <main class="flex flex-col md:flex-row justify-between px-6 space-y-4 md:space-y-0 md:space-x-4">
+    <!-- Input Box -->
+    <div class="w-full md:w-1/2">
+      <label for="userInput" class="block mb-2 text-green-400">Enter Last Number:</label>
+      <input id="userInput" type="number" class="w-full p-3 rounded bg-gray-900 text-white border border-green-500 focus:outline-none focus:ring-2 focus:ring-green-300" />
+      <button onclick="predictNext()" class="mt-4 w-full p-2 bg-green-600 hover:bg-green-700 rounded text-white font-bold">Predict</button>
+    </div><!-- Output Box -->
+<div class="w-full md:w-1/2">
+  <label class="block mb-2 text-green-400">AI Prediction:</label>
+  <div id="aiOutput" class="w-full min-h-[60px] p-3 bg-gray-900 rounded border border-green-500 text-xl font-semibold text-green-300 italic">
+    Waiting...
+  </div>
+</div>
+
+  </main>  <!-- Footer -->  <footer class="text-center py-4 mt-10 bg-black">
+    <div class="flex justify-center items-center space-x-2">
+      <div class="w-2.5 h-2.5 bg-green-400 rounded-full shadow-md animate-pulse"></div>
+      <p class="text-green-300 italic text-sm sm:text-base tracking-wider font-medium">
+        Powered by Htetmyat
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
